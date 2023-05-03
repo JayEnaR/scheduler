@@ -1,0 +1,31 @@
+<div class="p-4">
+    <h1 class="text-lg text-blue-600 font-semibold mb-4">Add Event</h1>
+    <form class="example-form" [formGroup]="newEventForm">
+
+        <mat-form-field class="w-full" appearance="outline">
+            <mat-label>Title</mat-label>
+            <input formControlName="title" matInput placeholder="Add a title..." value="Sushi">
+        </mat-form-field>
+
+        <mat-form-field class="w-full" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea formControlName="description" matInput placeholder="Add a description..."></textarea>
+        </mat-form-field>
+
+        <!-- Time -->
+        <div class="grid grid-cols-2 gap-4">
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Hour</mat-label>
+                <input type="number" formControlName="hour" matInput placeholder="Add a description..."  min="1" max="23">
+            </mat-form-field>
+
+            <mat-form-field class="w-full" appearance="outline">
+                <mat-label>Minutes</mat-label>
+                <input type="number" formControlName="minute" matInput placeholder="Add a description..." min="0" max="60">
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" (click)="saveEvent()" class="w-full">Save</button>
+
+    </form>
+</div>

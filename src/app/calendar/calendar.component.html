@@ -1,0 +1,29 @@
+<div class="flex flex-row">
+    <div *ngFor="let day of weekdays" class="flex-1 px-2 border text-indigo-500 m-0.5">
+        {{day}}
+    </div>
+</div>
+<!-- Weeks -->
+<ng-container *ngFor="let week of calendar?.weeks; index as weekIndex">
+    <div class="flex" style="height:14.2%;">
+        <!-- Days -->
+        <div *ngFor="let day of week.days; index as dayIndex" (click)="on_EditEvent(weekIndex, dayIndex)"
+            class="flex-row flex-1 px-2 border cursor-pointer m-0.5 hover:bg-slate-100 z-0 day-container">
+            <div class="grid grid-cols-2">
+                <label [ngClass]="{'text-slate-300':!day.isDayInMonth}">{{day.dayNumber}}</label>
+                <svg xmlns="http://www.w3.org/2000/svg" (click)="on_NewEvent(dayIndex); $event.stopPropagation()"
+                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                    class="w-5 h-5 justify-self-end text-blue-600 hover:text-black z-50 m-1 invisible">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <!-- Events -->
+            <ng-container *ngFor="let event of day.events">
+                {{event.title}}
+                <!-- {{event.description}}
+                {{event.time}} -->
+            </ng-container>
+        </div>
+    </div>
+</ng-container>

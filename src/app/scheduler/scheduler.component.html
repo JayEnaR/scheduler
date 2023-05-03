@@ -1,0 +1,22 @@
+<!-- mock container -->
+<div class="h-screen">
+
+    <mat-drawer-container [hasBackdrop]="true" class="h-full">
+        <mat-drawer #drawer mode="over" position="end" class="w-80">
+            <ng-container *ngFor="let event of events">
+                <!-- <p>{{event.eventDescription}}</p>
+                <p>{{event.time}}</p> -->
+            </ng-container>
+            <app-new-event></app-new-event>
+        </mat-drawer>
+        <mat-drawer-content class="h-full">
+            <div class="h-full">
+                <div class="mx-4 py-4 ">
+                    <app-month-picker></app-month-picker>
+                </div>
+                <app-calendar></app-calendar>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+
+</div>

@@ -1,0 +1,27 @@
+
+<div class="grid grid-cols-3" style="height:14.2%;">
+  <mat-form-field appearance="outline" class="w-96 h-16">
+    <mat-label>Choose year / month</mat-label>
+    <input #dpInput matInput [matDatepicker]="dp" [formControl]="dateCtrl">
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+      (monthSelected)="chosenMonthHandler($event, dpInput, dp)" panelClass="example-month-picker">
+    </mat-datepicker>
+  </mat-form-field>
+  <div class="flex justify-self-center items-center">
+    <div class="flex-none mr-20">
+      <svg (click)="prevMonth()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+      </svg>
+    </div>
+    <div class="flex-none text-3xl text-blue-600 font-semibold">
+      {{date}}
+    </div>
+    <div class="flex-none ml-20">
+      <svg (click)="nextMonth()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>      
+    </div>
+  </div>
+</div>
+
