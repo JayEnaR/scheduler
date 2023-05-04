@@ -8,9 +8,10 @@
     <div class="flex" style="height:14.2%;">
         <!-- Days -->
         <div *ngFor="let day of week.days; index as dayIndex" (click)="on_EditEvent(weekIndex, dayIndex)"
-            class="flex-row flex-1 px-2 border cursor-pointer m-0.5 hover:bg-slate-100 z-0 day-container">
-            <div class="grid grid-cols-2">
-                <label [ngClass]="{'text-slate-300':!day.isDayInMonth}">{{day.dayNumber}}</label>
+            class="flex-row flex-1 px-2 border cursor-pointer m-0.5 hover:bg-slate-100 z-0 day-container"
+            [ngClass]="{'bg-slate-100': day.dayNumber == currentDay && day.isDayInMonth}">
+            <div class="grid grid-cols-2" >
+                <label [ngClass]="{'text-slate-300':!day.isDayInMonth, 'text-blue-600': day.dayNumber == currentDay && day.isDayInMonth}">{{day.dayNumber}}</label>
                 <svg xmlns="http://www.w3.org/2000/svg" (click)="on_NewEvent(dayIndex); $event.stopPropagation()"
                     fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                     class="w-5 h-5 justify-self-end text-blue-600 hover:text-black z-50 m-1 invisible">

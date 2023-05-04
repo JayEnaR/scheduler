@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { weekdays } from "../models/week-days.data";
-import { DecimalRounder } from "../helpers/decimal.round";
-import { ICalendar, IDay, IEvent } from "../models/calendar-day.model";
-import { SchedulerService } from "../services/scheduler.service";
+import { weekdays } from "../../models/week-days.data";
+import { DecimalRounder } from "../../helpers/decimal.round";
+import { ICalendar, IDay, IEvent } from "../../models/calendar-day.model";
+import { SchedulerService } from "../../services/scheduler/scheduler.service";
 
 @Component({
   selector: 'app-calendar',
@@ -17,10 +17,12 @@ export class CalendarComponent implements OnInit {
   weekdays: string[] = weekdays;
   year: number;
   month: number;
+  currentDay: number;
 
   constructor(private _schedulerService: SchedulerService) {
     this.year = new Date().getFullYear();
     this.month = new Date().getMonth() + 1;
+    this.currentDay = new Date().getDay();
   }
 
   ngOnInit(): void {
@@ -33,10 +35,12 @@ export class CalendarComponent implements OnInit {
         this.month = +date.split('-')[1];
       }
       else {
+        // Handle date formating
       }
       this.calendar = {
         weeks: []
       };
+      this.currentDay = this.month == new Date().getMonth() + 1 ? new Date().getDay(): -1 ;
       this.createCalendar();
     });
   }
@@ -131,20 +135,17 @@ export class CalendarComponent implements OnInit {
       }
       this.calendar.weeks[weeks].days!.push.apply(this.calendar.weeks[weeks].days!, trailingWeek);
     }
-    console.log(this.calendar);
-
   }
 
   on_EditEvent(weekIndex: number, dayIndex: number): void {
+    alert(`NOTE: If no event exists, it will open the panel to add a new one. \nIf it does exist, it will open a form to edit it.`);
     const events: IEvent[] = this.calendar.weeks[weekIndex].days![dayIndex].events!;
-    debugger
-    if(events && events.length > 0){
+    if (events && events.length > 0) {
       this._schedulerService.on_EditEvent(events);
     }
-    else{
+    else {
       this.on_NewEvent(dayIndex);
     }
-    
   }
 
   on_NewEvent(dayIndex: number): void {

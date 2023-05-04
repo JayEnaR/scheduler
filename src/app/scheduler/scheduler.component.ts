@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { IEvent } from '../models/calendar-day.model';
-import { SchedulerService } from "../services/scheduler.service";
+import { IEvent } from '../../models/calendar-day.model';
+import { SchedulerService } from "../../services/scheduler/scheduler.service";
 
 @Component({
   selector: 'app-scheduler',
@@ -24,7 +24,6 @@ export class SchedulerComponent implements OnInit {
     });
     this._schedulerService.newEvent$.subscribe(date => {
       // TODO: add new event functionality
-      debugger
       this.drawer.open();
     });
   }
