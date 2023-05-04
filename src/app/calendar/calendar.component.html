@@ -1,5 +1,5 @@
 <div class="flex flex-row">
-    <div *ngFor="let day of weekdays" class="flex-1 px-2 border text-indigo-500 m-0.5">
+    <div *ngFor="let day of weekdays" class="flex-1 px-2 border text-indigo-500 m-0.5 font-semibold">
         {{day}}
     </div>
 </div>
@@ -8,23 +8,24 @@
     <div class="flex" style="height:14.2%;">
         <!-- Days -->
         <div *ngFor="let day of week.days; index as dayIndex" (click)="on_EditEvent(weekIndex, dayIndex)"
-            class="flex-row flex-1 px-2 border cursor-pointer m-0.5 hover:bg-slate-100 z-0 day-container"
-            [ngClass]="{'bg-slate-100': day.dayNumber == currentDay && day.isDayInMonth}">
-            <div class="grid grid-cols-2" >
-                <label [ngClass]="{'text-slate-300':!day.isDayInMonth, 'text-blue-600': day.dayNumber == currentDay && day.isDayInMonth}">{{day.dayNumber}}</label>
+            class="flex-row flex-1 px-2 border m-0.5 hover:bg-slate-100 z-0 day-container"
+            [ngClass]="{'bg-slate-100': day.dayNumber == currentDay && day.isDayInMonth, 'cursor-pointer': day.events?.length! == 0}">
+            <div class="grid grid-cols-2">
+                <label
+                    [ngClass]="{'text-slate-300':!day.isDayInMonth, 'text-blue-600': day.dayNumber == currentDay && day.isDayInMonth}">{{day.dayNumber}}</label>
                 <svg xmlns="http://www.w3.org/2000/svg" (click)="on_NewEvent(dayIndex); $event.stopPropagation()"
                     fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                    class="w-5 h-5 justify-self-end text-blue-600 hover:text-black z-50 m-1 invisible">
+                    class="cursor-pointer w-5 h-5 justify-self-end text-blue-600 hover:text-black z-10 m-1 invisible">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
+                <!-- Events -->
+                <ng-container *ngFor="let event of day.events">
+                    <span (click)="on_EventClick(event); $event.stopPropagation()" class="cursor-pointer hover:!text-black z-10">{{event.title}}</span>
+                    <!-- {{event.description}}
+                    {{event.time}} -->
+                </ng-container>
             </div>
-            <!-- Events -->
-            <ng-container *ngFor="let event of day.events">
-                {{event.title}}
-                <!-- {{event.description}}
-                {{event.time}} -->
-            </ng-container>
         </div>
     </div>
 </ng-container>

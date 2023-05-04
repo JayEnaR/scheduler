@@ -3,6 +3,7 @@ import { weekdays } from "../../models/week-days.data";
 import { DecimalRounder } from "../../helpers/decimal.round";
 import { ICalendar, IDay, IEvent } from "../../models/calendar-day.model";
 import { SchedulerService } from "../../services/scheduler/scheduler.service";
+import { dummyCalendarData } from "../../data/dummy-data";
 
 @Component({
   selector: 'app-calendar',
@@ -23,6 +24,7 @@ export class CalendarComponent implements OnInit {
     this.year = new Date().getFullYear();
     this.month = new Date().getMonth() + 1;
     this.currentDay = new Date().getDay();
+    // const x = this.calendar.weeks[0]?.days![0];
   }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class CalendarComponent implements OnInit {
       this.calendar = {
         weeks: []
       };
-      this.currentDay = this.month == new Date().getMonth() + 1 ? new Date().getDay(): -1 ;
+      this.currentDay = this.month == new Date().getMonth() + 1 ? new Date().getDay() : -1;
       this.createCalendar();
     });
   }
@@ -77,11 +79,7 @@ export class CalendarComponent implements OnInit {
           isDayInMonth: true,
           dayName: this.weekdays[d],
           dayNumber: day,
-          events: [{
-            title: "some title",
-            description: `Event on day: ${day}`,
-            time: "some time"
-          }]
+          events:[]
         });
         day++
       }
@@ -135,6 +133,8 @@ export class CalendarComponent implements OnInit {
       }
       this.calendar.weeks[weeks].days!.push.apply(this.calendar.weeks[weeks].days!, trailingWeek);
     }
+
+    console.log(this.calendar)
   }
 
   on_EditEvent(weekIndex: number, dayIndex: number): void {
@@ -152,4 +152,9 @@ export class CalendarComponent implements OnInit {
     const date = new Date(this.year, this.month, dayIndex + 1);
     this._schedulerService.on_NewEvent(date);
   }
+
+  on_EventClick(event: IEvent): void {
+    // TODO: handle selected event
+  }
+
 }

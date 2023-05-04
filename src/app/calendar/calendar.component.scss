@@ -1,3 +1,7 @@
 .day-container:hover svg {
     visibility: visible;
 }
+
+.day-container:hover span {
+    color: #2563eb;
+}
